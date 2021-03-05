@@ -1,0 +1,17 @@
+{
+  "widgets": {
+    "TRSDvcHq99dE4YMArnFzc": {
+      "id": "TRSDvcHq99dE4YMArnFzc",
+      "props": {},
+      "name": "Box",
+      "type": 0
+    }
+  },
+  "screen": {
+    "1": {
+      "id": 1,
+      "name": "skakani",
+      "widgets": ["TRSDvcHq99dE4YMArnFzc"]
+    }
+  }
+}
