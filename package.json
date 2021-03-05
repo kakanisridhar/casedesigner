@@ -1,0 +1,51 @@
+{
+  "name": "case-designer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "skakani",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "yarn shared:build && lerna run start --parallel --scope '{*/backend,*/frontend}'",
+    "dev": "yarn shared:build && lerna run dev --parallel",
+    "test": "lerna run test --parallel",
+    "lint": "lerna run lint --parallel",
+    "build": "yarn shared:build && lerna run build --parallel --scope '{*/backend,*/frontend}'",
+    "frontend": "yarn workspace @case-designer/frontend",
+    "backend": "yarn workspace @case-designer/backend",
+    "shared:build": "yarn --cwd shared build",
+    "shared:build:watch": "yarn --cwd shared build:watch"
+  },
+  "workspaces": [
+    "shared",
+    "frontend",
+    "backend"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "husky": "^4.3.0",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.3.0",
+    "prettier": "2.1.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md,ts}": [
+      "prettier --write"
+    ],
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
