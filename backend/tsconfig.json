@@ -6,15 +6,27 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "allowJs": true,
     "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
+    "outDir": "dist",
+    "baseUrl": "src",
+    "esModuleInterop": true,
     "incremental": true,
-    "types": [
-      "node",
-      "jest",
-      "express"
+    "skipLibCheck": true,
+    "plugins": [
+      {
+        "transform": "ts-auto-mock/transformer",
+        "cacheBetweenTests": false
+      }
     ]
-  }
+  },
+  "exclude": [
+      "node_modules/*",
+      "dist/*"
+  ],
+  "include": [
+      "src/**/*",
+      "scripts"
+  ]
 }

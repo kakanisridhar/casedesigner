@@ -1,12 +1,25 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import {
+  DNSHealthIndicator,
+  HealthCheck,
+  HealthCheckService,
+  TypeOrmHealthIndicator,
+} from '@nestjs/terminus';
 
-@Controller()
+@Controller('health')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly health: HealthCheckService,
+    private readonly dns: DNSHealthIndicator,
+    private readonly db: TypeOrmHealthIndicator,
+  ) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @HealthCheck()
+  check() {
+    return this.health.check([
+      () => this.dns.pingCheck('network', 'https://www.wikipedia.org'),
+      () => this.db.pingCheck('database', { timeout: 300 }),
+    ]);
   }
 }

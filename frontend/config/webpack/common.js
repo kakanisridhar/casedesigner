@@ -10,7 +10,17 @@ const Dotenv = require('dotenv-webpack')
 const babelLoader = {
   loader: 'babel-loader',
   options: {
-    presets: ['@babel/preset-env', '@babel/preset-react'],
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          targets: {
+            node: '10',
+          },
+        },
+      ],
+      '@babel/preset-react',
+    ],
     plugins: ['@babel/plugin-syntax-dynamic-import', '@babel/plugin-proposal-class-properties'],
   },
 }
@@ -99,9 +109,8 @@ module.exports = {
         analytics: 'Google Analytics ID',
         author: 'skakani',
         publishedDate: '2021-02-27',
-        description: 'Full Webpack 5 Boilerplate for JavaScript, React & TypeScript projects',
-        keywords:
-          'webpack, webpack5, boilerplate, template, max, config, bundler, bundle, javascript, react, reactjs, react.js, typescript, project, app',
+        description: 'case designer tool',
+        keywords: 'case designer , code generator',
         title: 'case designer',
         url: 'https://example.com',
       },

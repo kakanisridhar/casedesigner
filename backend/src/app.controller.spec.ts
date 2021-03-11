@@ -1,22 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Test, TestingModule } from '@nestjs/testing'
 
-describe('AppController', () => {
-  let appController: AppController;
+import { AppController } from 'app.controller'
+import {
+  dnsHealthIndicatorMock,
+  healthCheckMock,
+  typeormHealthIndicatorMock,
+} from 'common/utils/mocks/nest'
+
+describe('App Controller', () => {
+  let controller: AppController
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
-    }).compile();
+      providers: [
+        dnsHealthIndicatorMock,
+        healthCheckMock,
+        typeormHealthIndicatorMock,
+      ],
+    }).compile()
 
-    appController = app.get<AppController>(AppController);
-  });
+    controller = module.get(AppController)
+  })
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
-  });
-});
+  it('should be defined', () => {
+    expect(controller).toBeDefined()
+  })
+})
