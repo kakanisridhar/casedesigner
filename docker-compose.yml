@@ -30,8 +30,10 @@ services:
 
   backend:
     container_name: backend
+    image: case-designer-backend
     build:
-      context: backend
+      context: .
+      dockerfile: ./backend/dockerfile
     # env_file:
     #   - packages/server/.database.${NODE_ENV}.env
     ports:
@@ -39,13 +41,16 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+    command: yarn backend start
     depends_on:
       - postgres
 
   frontend:
     container_name: frontend
+    image: case-designer-frontend
     build:
-      context: frontend
+      context: .
+      dockerfile: ./frontend/dockerfile
     ports:
       - '3000:3000'
     networks:

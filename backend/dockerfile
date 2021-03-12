@@ -1,12 +1,37 @@
-FROM node:12-alpine
+FROM node:14.16.0-alpine3.10 AS base
+RUN mkdir -p /usr/src/app && \
+  addgroup -g 1001 appuser && \
+  adduser -S -u 1001 -G appuser appuser && \
+  chown -R appuser:appuser /usr/src/app && \
+  chmod -R +x  /usr/src/app && \
+  apk update && \
+  apk upgrade && \
+  apk add --no-cache bash git
+
+FROM base AS dependencies
 WORKDIR /usr/src/app
+COPY --chown=appuser:appuser .yarn ./.yarn/
+COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml   ./
+COPY --chown=appuser:appuser shared/package.json ./shared/
+COPY --chown=appuser:appuser frontend/package.json ./frontend/
+COPY --chown=appuser:appuser backend/package.json ./backend/
+USER 1001
+RUN yarn
 
-RUN apk update && apk add yarn
+FROM dependencies AS shared
+WORKDIR /usr/src/app
+COPY --chown=appuser:appuser ./shared ./shared/
+USER 1001
+RUN yarn shared build
 
-COPY package.json .
-COPY dist dist/
-
-RUN yarn --production
-
-EXPOSE 3000
-CMD [ "yarn", "start" ]
+FROM shared AS build-backend
+WORKDIR /usr/src/app
+ARG LAST_COMMIT
+ARG LAST_TAG
+ENV LAST_COMMIT=$LAST_COMMIT
+ENV LAST_TAG=$LAST_TAG
+COPY --chown=appuser:appuser ./backend ./backend/
+RUN yarn backend build && \
+  rm -rf ./frontend
+USER 1001
+CMD [ "yarn", "backend", "start" ]

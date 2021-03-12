@@ -13,6 +13,7 @@
     "build": "yarn shared:build && lerna run build --parallel --scope '{*/backend,*/frontend}'",
     "frontend": "yarn workspace @case-designer/frontend",
     "backend": "yarn workspace @case-designer/backend",
+    "shared": "yarn workspace @case-designer/shared",
     "shared:build": "yarn --cwd shared build",
     "shared:build:watch": "yarn --cwd shared build:watch"
   },
