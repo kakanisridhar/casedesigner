@@ -22,7 +22,7 @@ if (process.env.E2E) {
     path: path.join(__dirname, '.env.test'),
   })
 
-  logger.info('app env variables loaded')
+  logger.info('app env variables loaded from' + __dirname)
 }
 
 const commonConfig = {

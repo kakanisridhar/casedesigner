@@ -12,25 +12,26 @@ import helmet from 'helmet'
 import { WinstonModule } from 'nest-winston'
 
 import configOptions, { ORM_CONFIG_KEY, LOGGER_CONFIG_KEY } from 'config/config'
-import { AppController } from 'app.controller'
+import { HealthController } from 'health.controller'
+import { AppController } from './app.controller'
 
 @Module({
   imports: [
     HttpModule,
     TerminusModule,
     ConfigModule.forRoot(configOptions),
-    TypeOrmModule.forRootAsync({
+    /*TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => config.get(ORM_CONFIG_KEY),
       inject: [ConfigService],
-    }),
+    }),*/
     WinstonModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => config.get(LOGGER_CONFIG_KEY),
       inject: [ConfigService],
     }),
   ],
-  controllers: [AppController],
+  controllers: [HealthController, AppController],
 })
 export class AppModule {}
 

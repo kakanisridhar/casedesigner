@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "yarn shared:build && lerna run start --parallel --scope '{*/backend,*/frontend}'",
+    "start": "lerna run start --parallel --scope '{*/backend,*/frontend}'",
     "dev": "yarn shared:build && lerna run dev --parallel --scope '{*/backend,*/frontend}'",
     "test": "lerna run test --parallel",
     "lint": "lerna run lint --parallel",

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "prebuild": "rimraf build",
+    "start": "webpack serve -c config/webpack/dev.js",
     "dev": "webpack serve -c config/webpack/dev.js",
     "build": "webpack -c config/webpack/prod.js",
     "test": "jest",
