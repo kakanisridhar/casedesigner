@@ -9,12 +9,14 @@ import { Env, NodeEnv } from 'common/utils'
   const logger = WinstonModule.createLogger(loggerConfig)
 
   try {
-    const app = await NestFactory.create(AppModule, {
+    const app = await NestFactory.create(
+      AppModule /*, {
       logger:
         process.env.NODE_ENV !== NodeEnv.PROD
           ? WinstonModule.createLogger(loggerConfig)
           : false,
-    })
+    }*/
+    )
     const config = app.get(ConfigService)
 
     await prepareApp(app).listen(

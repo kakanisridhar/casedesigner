@@ -19,14 +19,11 @@
         "transform": "ts-auto-mock/transformer",
         "cacheBetweenTests": false
       }
-    ]
+    ],
+    "paths": {
+      "*": ["*", "generated/*"]
+    }
   },
-  "exclude": [
-      "node_modules/*",
-      "dist/*"
-  ],
-  "include": [
-      "src/**/*",
-      "scripts"
-  ]
+  "exclude": ["node_modules/*", "dist/*"],
+  "include": ["src/**/*", "scripts"]
 }

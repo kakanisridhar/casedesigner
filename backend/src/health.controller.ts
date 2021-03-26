@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common'
 import {
-  DNSHealthIndicator,
+  HttpHealthIndicator,
   HealthCheck,
   HealthCheckService,
   TypeOrmHealthIndicator,
@@ -10,7 +10,7 @@ import {
 export class HealthController {
   constructor(
     private readonly health: HealthCheckService,
-    private readonly dns: DNSHealthIndicator,
+    private readonly dns: HttpHealthIndicator,
     private readonly db: TypeOrmHealthIndicator
   ) {}
 

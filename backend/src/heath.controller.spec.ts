@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 
 import { HealthController } from 'health.controller'
 import {
-  dnsHealthIndicatorMock,
+  HttpHealthIndicatorMock,
   healthCheckMock,
   typeormHealthIndicatorMock,
 } from 'common/utils/mocks/nest'
@@ -14,7 +14,7 @@ describe('Health Controller', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [HealthController],
       providers: [
-        dnsHealthIndicatorMock,
+        HttpHealthIndicatorMock,
         healthCheckMock,
         typeormHealthIndicatorMock,
       ],

@@ -14,6 +14,8 @@ import { WinstonModule } from 'nest-winston'
 import configOptions, { ORM_CONFIG_KEY, LOGGER_CONFIG_KEY } from 'config/config'
 import { HealthController } from 'health.controller'
 import { AppController } from './app.controller'
+import * as winston from 'winston'
+import { GeneratorsModule } from './generators/generators.module'
 
 @Module({
   imports: [
@@ -30,6 +32,7 @@ import { AppController } from './app.controller'
       useFactory: (config: ConfigService) => config.get(LOGGER_CONFIG_KEY),
       inject: [ConfigService],
     }),
+    GeneratorsModule,
   ],
   controllers: [HealthController, AppController],
 })
